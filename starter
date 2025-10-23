@@ -1,0 +1,102 @@
+
+
+
+
+class Circuit{
+protected: 
+
+
+public:
+    ~Circuit(){//clear circuit after 
+        
+    }
+};
+
+class Resistor{
+public:
+
+
+    Resistor(){
+        
+    }
+
+
+};
+
+class Node{
+protected: 
+
+};
+
+class Source : public Node {
+public: 
+  
+};
+
+class Ground : public Node {
+public: 
+  
+};
+
+
+
+
+
+int main(){
+
+    Resistor *r[];
+    char resp;
+    
+    
+    
+    cout << "would you like to add a resistor? (y/n)";
+    cin >> resp;
+    while(resp == 'y'){
+        
+        
+        if(resp == 'y'){
+        
+        
+        
+        
+        
+        }else if(resp == 'n'){
+        
+        }else{
+            cout << "invalid response, try again";
+            cin >> resp;
+        }
+    }
+    
+    
+    return 0;
+}
+
+
+
+
+
+
+
+
+/**************************************
+
+cout << "would you like to add a resistor in parallel or in series?";
+cin >> res_position;
+
+if(res_position == "parallel"){
+
+    1/R[i] + 1/R[i] = Rp_tot     
+
+}else if(res_position == "series"){
+
+    R[i] + R[i] = Rs_tot
+    
+}else{
+    cout << "invalid response, try again:";
+    cin >> res_position;
+}
+
+
+
+**************************************/
