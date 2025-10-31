@@ -1,14 +1,10 @@
-
-
-
-
 class Circuit{
 protected: 
 
 
 public:
     ~Circuit(){//clear circuit after 
-        
+     //Maybe use this to create all of the rest of the objects?? less lines in main 
     }
 };
 
@@ -66,6 +62,7 @@ int main(){
         
         
         }else if(resp == 'n'){
+            Ground grounded;
         
         }else{
             cout << "invalid response, try again";
@@ -87,7 +84,7 @@ int main(){
 /**************************************
 
 Source s;
-
+string res_position;
 
 cout << "would you like to add a resistor in parallel or in series?";
 cin >> res_position;
