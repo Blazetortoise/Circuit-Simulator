@@ -14,10 +14,11 @@ public:
 
 class Resistor{
 public:
-
+    int resistance;
 
     Resistor(){
-        
+        cout<<"What resistance would you like?<<endl;
+        cin>>resistance;
     }
 
 
@@ -26,21 +27,25 @@ public:
 class Node{
 protected: 
 
+
 };
 
 class Source : public Node {
 public: 
+
+//source(){ use initialization list instead???
+//cout<<How many volts do you want your source to output???<<endl;
+// cin>>voltage;
+//}
   
 };
 
 class Ground : public Node {
 public: 
-  
+  ground(){
+    voltage = 0;
+  }
 };
-
-
-
-
 
 int main(){
 
@@ -80,6 +85,9 @@ int main(){
 
 
 /**************************************
+
+Source s;
+
 
 cout << "would you like to add a resistor in parallel or in series?";
 cin >> res_position;
