@@ -1,0 +1,116 @@
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+
+class Circuit {
+protected:
+	double totalres;
+
+public:
+	Circuit(): totalres
+
+		void addresistors();
+	double gettotalres();
+
+	~Circuit() { //clear circuit after
+
+	}
+};//end of circuit
+
+//circuit in parallel vs in series?
+
+
+class Resistor {
+public:
+
+
+	Resistor() {
+
+	}
+
+
+};
+
+class Node {
+protected:
+
+};//end of resistor
+
+
+
+class Source : public Node {
+public:
+        Source(string n = "Voltage source") : Node(n) {}
+};//end of source
+
+class Ground : public Node {
+public:
+    Ground(string n = "GND") : Node(n) {}
+};//end of ground
+
+
+
+
+
+int main() {
+    Circuit circuit;
+	Resistor *r[];
+	char resp;
+
+
+
+	cout << "would you like to add a resistor? (y/n)";
+	cin >> resp;
+	while(resp == 'y') {
+
+		cout << "would you like to add a resistor in parallel or in series?";
+		cin >> res_position;
+
+		if(res_position == "parallel") {
+
+			1/R[i] + 1/R[i] = Rp_tot
+
+		    rp_tot += 1/r;
+
+		} else if(res_position == "series") {
+
+			R[i] + R[i] = Rs_tot
+
+			              rs_tot += r;
+
+		} else {
+			cout << "invalid response, try again:";
+			cin >> res_position;
+		}
+
+
+
+		if(resp == 'y') {
+
+
+
+		} else if(resp == 'n') {
+
+		} else {
+			cout << "invalid response, try again";
+			cin >> resp;
+		}
+	}
+
+
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
