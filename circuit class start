@@ -1,0 +1,28 @@
+#include <iostream>
+using namespace std;
+
+class Circuit{
+protected:
+
+public:
+
+    void nodecalc(){
+        if(!voltagesource){
+            cout << "No voltage source" << endl;
+        }
+        
+        
+        double totalR, Vs, cur;
+        
+    }
+    
+};//end circuit class
+
+
+
+
+int main()
+{
+    
+    return 0;
+}
