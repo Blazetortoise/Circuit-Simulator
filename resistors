@@ -4,13 +4,17 @@ using namespace std;
 
 class Resistor : public System {
 public:
+      int res;
+      double voltage;
+      double current;
+      
       Resistor(string , int n1, int n2, double res): {}
 
 
 
   void print(){
-      cout << "Resistor " << r << " bewteen nodes " << node1 << " & " 
-      << node2 << " = " << res << " ohms" << endl;
+      cout << "Resistor with Resistance: " << res << " Current: " << current << " Voltage: " << voltage<<endl;
+
 
     }
   
