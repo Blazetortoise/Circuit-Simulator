@@ -1,0 +1,19 @@
+
+#include <string>
+
+class System {
+public:
+
+    Stystem(int n1, int n2):node1(n1), node2(n2){}
+
+    
+    ~System(){}
+
+    int getNode1() const { return node1; }
+    int getNode2() const { return node2; }
+
+
+    double getValue() ;
+    void print();
+
+};
