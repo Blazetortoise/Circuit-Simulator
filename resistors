@@ -1,8 +1,7 @@
 #include <iostream>
-#include "System.h"
 using namespace std;
 
-class Resistor : public System {
+class Resistor{
 public:
       int res;
       double voltage;
