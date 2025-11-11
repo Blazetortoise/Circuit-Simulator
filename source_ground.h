@@ -14,3 +14,9 @@ public:
         cout << "Voltage Source: " << voltage << " V" << endl;
     }
 };
+
+class Ground {
+public:
+    Ground() {}
+    double getVoltage() const { return 0.0; }
+};
