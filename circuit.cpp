@@ -1,5 +1,4 @@
 //I'm going to make this the main file for now since we have like a billion others
-
 #include <iostream>
 #include "resistors.h"
 using namespace std;
@@ -7,24 +6,28 @@ using namespace std;
 
 class Circuit{
 protected:
-int rtotal; //this is the total resistance of the circuit
-double 
+    vector<Node> nodes;
+    Source source;
+    Ground ground;
 
 public:
-    Circuit(){
-
-    }
+    Circuit(){}
 
     void nodecalc(){
         if(!voltagesource){
             cout << "No voltage source" << endl;
         }
-        
+
+
+    void addResistor(double r) {
+        resistors.push_back(Resistor(r));
+    }
         
         double totalR, Vs, cur;
         
     }
-    
+
+
 };//end circuit class
 
 int main(){
