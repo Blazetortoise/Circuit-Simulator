@@ -1,12 +1,12 @@
 #include <iostream>
 using namespace std;
 
-class Source {
+class Source : public Node{
 protected:
     double voltage;
 
 public:
-    Source(double v = 0.0) : voltage(v) {}
+    Source(double v = 0.0) : Node(0),  voltage(v) {}
 
     double getVoltage() const { return voltage; }
 
@@ -15,8 +15,8 @@ public:
     }
 };
 
-class Ground {
+class Ground : public Node{
 public:
-    Ground() {}
+    Ground() : Node(-1){ setVoltage(0.0);}
     double getVoltage() const { return 0.0; }
 };
