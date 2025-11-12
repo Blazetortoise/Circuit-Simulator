@@ -31,9 +31,10 @@ protected:
 public: 
       Node(){
             string type; // input variables
+            cin>>type;
             int num; 
-
-      resistors = new Resistor[num];
+            cin>>num;
+            resistors = new Resistor[num];
             
       
       }
