@@ -1,54 +1,55 @@
-//I'm going to make this the main file for now since we have like a billion others
+#//I'm going to make this the main file for now since we have like a billion others
 #include <iostream>
 #include <vector>
 #include "components.h"
-#include "source.h"
+#include "source_ground.h"
 using namespace std;
 
 
 class Circuit{
 protected:
-    vector<Node> nodes;
+    Node  *nodes; //for dynamic memory allocation later
     Source source;
     Ground ground;
 
 public:
-    Circuit(const Source &src, const Ground &gnd) : 
-    source(src), ground(gnd), totalResistance(0.0), totalCurrent(0.0) {}
+    Circuit(const Source &src, const Ground &gnd) : source(src), ground(gnd){}
 
     void buildC(){
+        int numNodes;
         cout << "how many nodes, not including GND: " ;
         cin >> numNodes;
-            if (numNodes <= 0){
-                throw invalid_argument("Invalid input");
-            }
-        
-
-    for(int i = 0; i < numNodes; i++){
-        Node n(i);
-        char resp;
-
-        cout << "would you like to add resistors to node " << i << "(y/n)";
-        cin resp;
-
-        while(resp == y){
-            double value;
-            cout << "enter resistor value (ohms): "
-            cin >> value;
-            n.addResistor(value);
-
-            cout << "would you like to add another resistor to node " << i << "(y/n)";
-            cin >> resp;
+        if (numNodes <= 0){ //if number is negative then throw exception
+            throw invalid_argument("Invalid input");
         }
-    nodes.push_back(n);
+        nodes = new Node[numNodes]; //actually allocate memory with desired number of nodes
+
+
+        for(int i = 0; i < numNodes; i++){
+
+            char resp;
+
+            cout << "would you like to add resistors to node " << i << "(y/n)";
+            cin>>resp;
+
+            while(resp == y){
+                double value;
+                cout << "enter resistor value (ohms): "
+                cin >> value;
+                nodes[i].addResistor(value);
+
+                cout << "would you like to add another resistor to node " << i << "(y/n)";
+                cin >> resp;
+            }
+        }
     }
-}
 
 
 
     void CalcVoltage() {
         try{
-            totalres = 0.0;
+            double totalres = 0;
+
 
             for(numNodes){
                 totalres += n.totalres;
@@ -63,11 +64,11 @@ public:
             cout << "**voltage division**" << endl;
             cout << "Total resistance: " << totalres << " ohms" << endl;
             cout << "current: " << totalc << " A" << endl;
-            
-//need math 
+
+//need math
         }
     }
-    
+
     void printCircuit() const{
         cout << "*****************" << endl;
         source.print();
@@ -78,4 +79,5 @@ public:
 
 
 };//end circuit class
+
 
