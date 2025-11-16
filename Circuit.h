@@ -1,0 +1,39 @@
+#ifndef CIRCUIT_H
+#define CIRCUIT_H
+
+#include "Node.h"
+#include "Source.h"
+#include <vector>
+#include <string>
+using namespace std;
+
+class Circuit {
+private:
+    vector<Node> nodes;  // STL vector dynamic collection
+    Source source;
+    Ground ground;
+    string circuitName;
+
+public:
+    Circuit(double sourceVoltage, const string& name = "Circuit");
+    ~Circuit();
+
+    void buildCircuit(); //build func
+    void addNode();
+    
+    void calculateVoltages(); // circuit analysis
+    void analyzeCircuit();
+    
+    void printCircuit() const; // displays
+    void printAnalysis() const;
+    
+    void saveToFile(const std::string& filename) const; // file I/O 
+    void loadFromFile(const std::string& filename);
+    
+    bool operator==(const Circuit& other) const; // operator overloading
+    
+    // Advanced C++ feature: Lambda function usage
+    //void demonstrateLambda() const;
+};
+
+#endif
