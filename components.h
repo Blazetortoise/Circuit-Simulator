@@ -4,17 +4,21 @@ using namespace std;
 class Resistor{
 
 protected:
-    int res;
-    double resVoltage;
-    double resCurrent;
+    double resistance;
+    double voltage;
+    double current;
 public:
 
-    Resistor(){
-        int input; //Every time a resistor is created you are asked for the value
-        cout<< "What value should this resistor have? " <<endl;
-        cin>>input;
-        res = input;
+    Resistor(double r : resistance(r), voltage(v), current(c)){}
+    double getResistance() const { return resistance; }
+    double getVoltage() const { return voltage; }
+    double getCurrent() const { return current; }   
+
+    void setCurrent(double i){
+        current = i;
+        voltage = current * resistance;
     }
+
     void print(){ //make this an overloaded insertion operator later
         cout << "Resistor with Resistance: " << res << " Current: " << resCurrent << " Voltage: " << resVoltage<<endl;
     }
@@ -23,7 +27,8 @@ public:
 
 class Node{ // not really a "node" as they are in nodal analysis, basically just a resistor honestly 
 protected:
-    int position; // since there are going to be multiple nodes in a circuit, might add this to circuit class instead idk
+    int position;
+    
     Resistor *resistors; // for dynamic memory allocation later
     int rtot; // total resistance to be counted as resistors are created
     double nodeVoltage;
