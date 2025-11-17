@@ -1,3 +1,6 @@
+#ifndef SOURCE_H
+#define SOURCE_H
+#include "Node.h"
 #include <iostream>
 using namespace std;
 
@@ -6,17 +9,17 @@ protected:
     double voltage;
 
 public:
-    Source(double v = 0.0) : Node(0),  voltage(v) {}
+    Source(double v = 0.0);
 
-    double getVoltage() const { return voltage; }
-
-    void print() const {
-        cout << "Voltage Source: " << voltage << " V" << endl;
-    }
+    double getVoltage() const;
+    void print() const;
 };
 
 class Ground : public Node{
 public:
-    Ground() : Node(-1){ setVoltage(0.0);}
-    double getVoltage() const { return 0.0; }
+    Ground();
+    double getVoltage() const;
+    void print() const;
 };
+
+#endif
