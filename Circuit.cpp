@@ -1,6 +1,7 @@
 #include "Circuit.h"
 #include <iostream>
 #include <vector>
+#include <stdexcept>
 #include "components.h"
 #include "source_ground.h"
 using namespace std;
@@ -41,7 +42,7 @@ void Circuit::buildC(){
             try {
                 nodes[i].addResistor(value);
                 cout << "Resistor added successfully!" << endl;
-            } catch (const std::exception& e) {//any error for resistor input 
+            } catch (const exception& e) {//any error for resistor input 
                 cout << "Error: " << e.what() << endl;
             }
             
@@ -66,12 +67,12 @@ double totalResistance = 0.0;
 for (auto& node : nodes) {
     double req = node.getEquivalentResistance();
     if (req <= 0) {
-        throw std::runtime_error("Invalid node configuration: zero resistance");
+        throw runtime_error("invalid node");
     }
     totalResistance += req;
     }
 if (totalResistance <= 0) {
-        throw runtime_error("Total resistance cannot be zero or negative");
+        throw runtime_error("total resistance cannot be zero or negative");
     }
 
 double totalCurrent = source.getVoltage() / totalResistance; //ohms law calc
@@ -135,9 +136,9 @@ void Circuit::printCircuit() const {
             throw runtime_error("Cannot open file for writing: " + filename);
         }
 
-        outFile << circuitName << std::endl;
-        outFile << source.getVoltage() << std::endl;
-        outFile << nodes.size() << std::endl;
+        outFile << circuitName << endl;
+        outFile << source.getVoltage() << endl;
+        outFile << nodes.size() << endl;
 
         for (const auto& node : nodes) {
             outFile << node.getNodeNumber() << " " 
