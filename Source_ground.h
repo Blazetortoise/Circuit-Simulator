@@ -1,6 +1,7 @@
 #ifndef SOURCE_H
 #define SOURCE_H
 #include "Node.h"
+#include "Components.h"
 #include <iostream>
 using namespace std;
 
@@ -12,6 +13,7 @@ public:
     Source(double v = 0.0);
 
     double getVoltage() const;
+    void setSourceVoltage(double v);
     void print() const;
 };
 
