@@ -18,7 +18,7 @@ public:
     Circuit(double sourceVoltage, const string& name = "Circuit");
     ~Circuit();
 
-    void buildCircuit(); //build func
+    void buildC(); //build func
     void addNode();
     
     void calculateVoltages(); // circuit analysis
@@ -27,10 +27,10 @@ public:
     void printCircuit() const; // displays
     void printAnalysis() const;
     
-    void saveToFile(const std::string& filename) const; // file I/O 
-    void loadFromFile(const std::string& filename);
+    void saveToFile(const string& filename) const; // file I/O 
+    void loadFromFile(const string& filename);
     
-    bool operator==(const Circuit& other) const; // operator overloading
+    bool operator== (const Circuit& other) const; // operator overloading
     
     // Advanced C++ feature: Lambda function usage
     //void demonstrateLambda() const;
