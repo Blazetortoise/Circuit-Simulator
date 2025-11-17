@@ -14,9 +14,9 @@ protected:
 public:
 
     Resistor(double r = 1.0);
-    double getResistance() const { return resistance; }
-    double getVoltage() const { return voltage; }
-    double getCurrent() const { return current; }   
+    double getResistance() const;
+    double getVoltage() const;
+    double getCurrent() const;
 
     void setCurrent(double i){
         current = i;
