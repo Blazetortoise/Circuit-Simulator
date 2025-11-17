@@ -1,8 +1,8 @@
 #ifndef CIRCUIT_H
 #define CIRCUIT_H
 
-#include "Node.h"
-#include "Source.h"
+#include "components.h"
+#include "source_ground.h"
 #include <vector>
 #include <string>
 using namespace std;
