@@ -18,35 +18,37 @@ public:
     double getVoltage() const;
     double getCurrent() const;
 
-    void setCurrent(double i){
-        current = i;
-        voltage = current * resistance;
-    }
+    void setVoltage(double v);
+    void setCurrent(double i);
 
-    void print(){ //make this an overloaded insertion operator later
-        cout << "Resistor with Resistance: " << res << " Current: " << resCurrent << " Voltage: " << resVoltage<<endl;
-    }
-    double getValue() {return res; }
+    friend ostream& operator<<(ostream& os, const Resistor& r);
 };
 
-class Node{ // not really a "node" as they are in nodal analysis, basically just a resistor honestly 
+class Node{ 
 protected:
-    int position;
-    
-    Resistor *resistors; // for dynamic memory allocation later
-    int rtot; // total resistance to be counted as resistors are created
+    int nodeNumber;
+    vector<Resistor> resistors;  
     double nodeVoltage;
-    int numResistors; //Handy for current division later
-public:
-    Node(){
-        string type; // input variables
-        int num;
-        cin>>num;
-        resistors = new Resistor[num];
-        }
-    }
+
+ public:
+
+    Node(int num = 0);
+    virtual ~Node();
+
+    void addResistor(double resistance);
+    double getTotalResistance() const;
+    double getEquivalentResistance() const;
+
+    int getNodeNumber() const;
+    double getVoltage() const;
+    void setVoltage(double v);
+    int getResistorCount() const;
+
+    void calculateCurrents(double totalCurrent);
+    virtual void print() const;
 
 
+    friend ostream& operator<<(ostream& os, const Node& node);
 };
 
 #endif
