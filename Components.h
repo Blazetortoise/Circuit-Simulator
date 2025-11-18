@@ -22,7 +22,7 @@ public:
     void setCurrent(double i);
 
     friend ostream& operator<<(ostream& os, const Resistor& r);
-};
+};//end of resistor class
 
 class Node{ 
 protected:
@@ -49,6 +49,6 @@ protected:
 
 
     friend ostream& operator<<(ostream& os, const Node& node);
-};
+};// end of node class
 
 #endif
