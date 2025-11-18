@@ -2,7 +2,7 @@
 #define CIRCUIT_H
 
 #include "components.h"
-#include "source_ground.h"
+#include "Source.h"
 #include <vector>
 #include <string>
 using namespace std;
@@ -20,18 +20,19 @@ public:
 
     void buildC(); //build func
     void addNode();
-    
+
     void calculateVoltages(); // circuit analysis
     void analyzeCircuit();
-    
+
     void printCircuit() const; // displays
     void printAnalysis() const;
-    
-    void saveToFile(const string& filename) const; // file I/O 
+
+    void saveToFile(const string& filename) const; // file I/O
     void loadFromFile(const string& filename);
-    
-    bool operator== (const Circuit& other) const; // operator overloading
-    
+
+    bool operator==(const Circuit& other) const; // operator overloading
+    void demonstrateLambda() const;
+
     // Advanced C++ feature: Lambda function usage
     //void demonstrateLambda() const;
 };
