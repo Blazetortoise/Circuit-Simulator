@@ -1,9 +1,10 @@
 #include "Circuit.h"
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <stdexcept>
 #include "components.h"
-#include "source_ground.h"
+#include "Source.h"
 using namespace std;
 
 //constructor
@@ -62,24 +63,24 @@ void Circuit::calculateVoltages() {
     if (nodes.empty()) {
         throw runtime_error("circuit has no nodes");
     }
-//series calc
-double totalResistance = 0.0;
-for (auto& node : nodes) {
-    double req = node.getEquivalentResistance();
-    if (req <= 0) {
-        throw runtime_error("invalid node");
+    //series calc
+    double totalResistance = 0.0;
+    for (auto& node : nodes) {
+        double req = node.getEquivalentResistance();
+        if (req <= 0) {
+            throw runtime_error("invalid node");
+        }
+        totalResistance += req;
     }
-    totalResistance += req;
-    }
-if (totalResistance <= 0) {
+    if (totalResistance <= 0) {
         throw runtime_error("total resistance cannot be zero or negative");
     }
 
-double totalCurrent = source.getVoltage() / totalResistance; //ohms law calc
+    double totalCurrent = source.getVoltage() / totalResistance; //ohms law calc
 
-// volt div calc
-double voltageSum = source.getVoltage();
-for (auto& node : nodes) {
+    // volt div calc
+    double voltageSum = source.getVoltage();
+    for (auto& node : nodes) {
         double req = node.getEquivalentResistance();
         double nodeCurrent = totalCurrent;
         double nodeVoltage = nodeCurrent * req;
@@ -87,6 +88,7 @@ for (auto& node : nodes) {
         node.setVoltage(nodeVoltage);
         node.calculateCurrents(nodeCurrent);
     }
+}
 
  
 void Circuit::analyzeCircuit(){
@@ -125,7 +127,7 @@ void Circuit::printCircuit() const {
     ground.print();
 
     cout << "\n-------------------------------------" << endl;
-
+}
     void Circuit::printAnalysis() const {
     printCircuit();
     }
@@ -203,4 +205,3 @@ void Circuit::demonstrateLambda() const {
     
     cout << "Total Power Dissipation: " << totalPower << " W" << std::endl;
 }
-
