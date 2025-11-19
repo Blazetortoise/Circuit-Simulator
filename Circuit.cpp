@@ -10,7 +10,7 @@ using namespace std;
 //constructor
 Circuit::Circuit(double sourceVoltage, const string& name) 
     : source(sourceVoltage), ground(), circuitName(name) {
-    cout << "Circuit '" << circuitName << "' created with " 
+    cout << "Circuit " << "created with " 
               << sourceVoltage << "V source" << endl;
 }
 
