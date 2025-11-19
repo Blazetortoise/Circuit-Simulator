@@ -180,13 +180,8 @@ void Circuit::loadFromFile(const string& filename) {
     cout << "Circuit loaded from " << filename << endl;
 }
 
-bool Circuit::operator==(const Circuit& other) const {
-    return (circuitName == other.circuitName && 
-            source.getVoltage() == other.source.getVoltage() &&
-            nodes.size() == other.nodes.size());
-}
 
-// Advanced C++ feature: Lambda functions (not typically covered in intro classes)
+// Advanced C++ feature: Lambda functions
 void Circuit::demonstrateLambda() const {
     cout << "\n=== Lambda Function Demonstration ===" << endl;
     cout << "Using lambda to calculate total power dissipation:" << endl;
