@@ -14,9 +14,7 @@ Node::Node(int num) : nodeNumber(num), nodeVoltage(0.0) {
     cout << "Node " << nodeNumber << " created" << endl;
 }
 
-Node::~Node() {
-    cout << "Node " << nodeNumber << " destroyed" << endl;
-}
+Node::~Node() {}
 
 
 double Resistor::getResistance() const { return resistance;} //inline get functions
@@ -57,10 +55,10 @@ void Node::addResistor(double resistance) {
 }
 
 
-vector<double> Node::getResistances() const { //getter function to make printing individual resistors at the end possible
-    vector<double> resistances;
-    for (const auto& r : resistors) {
-        resistances.push_back(r.getResistance());
+vector<double> Node::getResistances() const {
+    vector<double> resistanceValues;
+    for (int i = 0; i < resistors.size(); i++) {
+        resistanceValues.push_back(resistors[i].getResistance());
     }
     return resistanceValues;
 }
