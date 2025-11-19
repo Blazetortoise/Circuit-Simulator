@@ -154,36 +154,6 @@ void Circuit::printCircuit() const {
 }
 
 
-void Circuit::loadFromFile(const string& filename) {
-    ifstream inFile(filename);
-
-    if (!inFile) {
-        throw runtime_error("Cannot open file for reading: " + filename);
-    }
-
-    getline(inFile, circuitName);
-
-    double voltage;
-    inFile >> voltage;
-    source.setSourceVoltage(voltage);
-
-    int numNodes;
-    inFile >> numNodes;
-    nodes.clear();
-
-    for (int i = 0; i < numNodes; i++) {
-        int nodeNum, resistorCount;
-        double nodeVoltage;
-        inFile >> nodeNum >> resistorCount >> nodeVoltage;
-        nodes.push_back(Node(nodeNum));
-        nodes[i].setVoltage(nodeVoltage);
-    }
-
-    inFile.close();
-    cout << "Circuit loaded from " << filename << endl;
-}
-
-
 // Advanced C++ feature: Lambda functions (not typically covered in intro classes)
 void Circuit::demonstrateLambda() const {
     cout << "\n=== Lambda Function Demonstration ===" << endl;
@@ -210,7 +180,6 @@ ostream& operator<<(ostream& out,const Circuit& c) {
         double req = c.nodes[i].getEquivalentResistance();
         totalResistance += req;
     }
-    // Cursed but whatever
     out<< "  ***"<<endl;
     out<<" * + *"<<endl;
     out<<"*     * "<<c.source.getVoltage()<<"V"<<endl;
