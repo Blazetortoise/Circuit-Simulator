@@ -29,10 +29,11 @@ public:
 
     void saveToFile(const string& filename) const; // file I/O
     void loadFromFile(const string& filename);
-    // Advanced C++ feature: Lambda function usage
-    void demonstrateLambda() const;
-
-     friend ostream& operator<<(ostream& out,const Circuit& c); //another way to print the circuit, also for operator overloading requirement
+    
+    void demonstrateLambda() const; // Advanced C++ feature: Lambda function usage
+    
+    friend ostream& operator<<(ostream& out,const Circuit& c); //another way to print the circuit, also for operator overloading requirement
+    
 };
 
 #endif
