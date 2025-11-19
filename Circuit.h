@@ -8,13 +8,15 @@
 using namespace std;
 
 class Circuit {
-private:
-    vector<Node> nodes;  // STL vector dynamic collection
+protected:
+
     Source source;
     Ground ground;
     string circuitName;
 
 public:
+    vector<Node> nodes;  // STL vector dynamic collection
+
     Circuit(double sourceVoltage, const string& name = "Circuit");
     ~Circuit();
 
@@ -29,11 +31,11 @@ public:
 
     void saveToFile(const string& filename) const; // file I/O
     void loadFromFile(const string& filename);
-    
+
     void demonstrateLambda() const; // Advanced C++ feature: Lambda function usage
-    
+
     friend ostream& operator<<(ostream& out,const Circuit& c); //another way to print the circuit, also for operator overloading requirement
-    
+
 };
 
 #endif
