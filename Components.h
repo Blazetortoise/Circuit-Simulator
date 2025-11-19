@@ -36,7 +36,7 @@ protected:
     virtual ~Node();
 
     void addResistor(double resistance);
-    vector<double> getResistances();
+    vector<double> getResistances() const;
     double getTotalResistance() const;
     double getEquivalentResistance() const;
 
