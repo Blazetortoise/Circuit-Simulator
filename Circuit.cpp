@@ -213,15 +213,15 @@ ostream& operator<<(ostream& out,const Circuit& c) {
     // Cursed but whatever
     out<< "  ***"<<endl;
     out<<" * + *"<<endl;
-    out<<"*     *"<<c.source.getVoltage()<<"V"<<endl;
+    out<<"*     * "<<c.source.getVoltage()<<"V"<<endl;
     out<<" * - *"<<endl;
     out<<"  ***"<<endl;
-    out<<"   | "<< "Series Current: " << c.source.getVoltage() / totalResistance<< endl;
+    out<<"   | "<< "Series Current: " << c.source.getVoltage() / totalResistance << "A"<<endl;
     out<<"   | "<<endl;
     out<<"   | "<<endl;
     out<<"   | "<<endl;
     for(int i = 0; i < c.nodes.size(); i++) {
-        if (c.nodes[i].getResistorCount()<3){
+        if (c.nodes[i].getResistorCount()<=3){
             switch(c.nodes[i].getResistorCount()) {
                 case 1:
                     out<<"   |  Node "<< i+1 <<endl;
@@ -233,11 +233,15 @@ ostream& operator<<(ostream& out,const Circuit& c) {
                 case 2: {
                     double v1 = c.nodes[i].getVoltage()*(c.nodes[i].getResistances()[0]/(c.nodes[i].getResistances()[0] + (c.nodes[i].getResistances()[1])));
                     double v2 = c.nodes[i].getVoltage()-v1;
+                    out<<"    | "<<endl;
+                    out<<"   ___ "<<endl;
                     out<<"   | | "<<endl;
                     out<<"   \\ \\ "<<endl;
-                    out<<"   / / "<< "R:" <<  c.nodes[i].getResistances()[0]<<endl;
-                    out<<"   \\ \\"<<endl;
+                    out<<"   / / "<< "R:" <<  c.nodes[i].getResistances()[0]<<" V:"<< v1 <<" I:" << v1/c.nodes[i].getResistances()[0]<<endl;
+                    out<<"   \\ \\"<<"R:" <<  c.nodes[i].getResistances()[1]<<" V:"<< v2 << v2/c.nodes[i].getResistances()[1]<<endl;
                     out<<"   / /"<<endl;
+                    out<<"   --- "<<endl;
+                    out<<"    | "<<endl;
                     break;
                 }
                 case 3:
@@ -247,10 +251,14 @@ ostream& operator<<(ostream& out,const Circuit& c) {
                         (c.nodes[i].getResistances()[2])));
                     double v3 =  c.nodes[i].getVoltage()*(c.nodes[i].getResistances()[2]/(c.nodes[i].getResistances()[0] + (c.nodes[i].getResistances()[1])+
                         (c.nodes[i].getResistances()[2])));
+                    out<<"    | "<<endl;
+                    out<<"  _____ "<<endl;
                     out<<"  | | | Node Voltage Drop:"<<c.nodes[i].getVoltage()<<endl;
                     out<<"  \\ \\ \\ "<< "R:" <<  c.nodes[i].getResistances()[0]<<" V=" <<v1 << " " <<"I=" << v1/c.nodes[i].getResistances()[0] <<endl;
                     out<<"  \\ \\ \\"<< "R:" <<  c.nodes[i].getResistances()[1]<<" V=" << v2 << " " <<"I=" << v2/c.nodes[i].getResistances()[1] <<endl;
                     out<<"  / / /"<< "R:" << c.nodes[i].getResistances()[0]<<" V=" <<v3 << " " <<"I=" << v3/c.nodes[i].getResistances()[2] <<endl;
+                    out<<"  ----- "<<endl;
+                    out<<"    | "<<endl;
                     break;
             }
 
@@ -262,6 +270,6 @@ ostream& operator<<(ostream& out,const Circuit& c) {
             out<<"   |"<<endl;
         }
     }
-    out<<"   ___  GND " <<endl;
-    out<<"   /// " <<endl;
+    out<<"  ___  GND " <<endl;
+    out<<"  /// " <<endl;
 }
