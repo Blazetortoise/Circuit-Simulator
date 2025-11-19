@@ -57,7 +57,7 @@ void Node::addResistor(double resistance) {
 }
 
 
-vector<double> Node::getResistances() { //getter function to make printing individual resistors at the end possible
+vector<double> Node::getResistances() const { //getter function to make printing individual resistors at the end possible
     vector<double> resistances;
     for (const auto& r : resistors) {
         resistances.push_back(r.getResistance());
