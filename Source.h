@@ -1,6 +1,5 @@
 #ifndef SOURCE_H
 #define SOURCE_H
-#include "Node.h"
 #include "Components.h"
 #include <iostream>
 using namespace std;
