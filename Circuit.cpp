@@ -15,9 +15,7 @@ Circuit::Circuit(double sourceVoltage, const string& name)
 }
 
 //destructor
-Circuit::~Circuit() {
-    cout << "Circuit '" << circuitName << "' destroyed" << endl;
-}
+Circuit::~Circuit() {}
 
 void Circuit::buildC(){
     int numNodes;
