@@ -37,16 +37,15 @@ void Resistor::setCurrent(double i) {
     current = i;
     voltage = current * resistance;
 }
-void Node::setVoltage(double v) {
-    nodeVoltage = v;
-    // Update voltage across all resistors in this node
-    for (auto& r : resistors) {
+void Node::setVoltage(double v) { // update voltage across all resistors in this node
+    nodeVoltage = v; 
+    for (auto& r : resistors) { //auto for variable as could be int or double based on division
         r.setVoltage(v);
     }
 }
 void Node::calculateCurrents(double totalCurrent) {
     // Current division for parallel resistors
-    for (auto& r : resistors) {
+    for (auto& r : resistors) { //auto for variable as could be int or double based on division
         double req = getEquivalentResistance();
         double current = totalCurrent * (req / r.getResistance());
         r.setCurrent(current);
