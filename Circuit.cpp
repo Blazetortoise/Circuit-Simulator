@@ -117,6 +117,36 @@ void Circuit::analyzeCircuit(){
 }
 
 
+void Circuit::loadFromFile(const string& filename) {
+    ifstream inFile(filename);
+
+    if (!inFile) {
+        throw runtime_error("Cannot open file for reading: " + filename);
+    }
+
+    getline(inFile, circuitName);
+
+    double voltage;
+    inFile >> voltage;
+    source.setSourceVoltage(voltage);
+
+    int numNodes;
+    inFile >> numNodes;
+    nodes.clear();
+
+    for (int i = 0; i < numNodes; i++) {
+        int nodeNum, resistorCount;
+        double nodeVoltage;
+        inFile >> nodeNum >> resistorCount >> nodeVoltage;
+        nodes.push_back(Node(nodeNum));
+        nodes[i].setVoltage(nodeVoltage);
+    }
+
+    inFile.close();
+    cout << "Circuit loaded from " << filename << endl;
+}
+
+
 void Circuit::printCircuit() const {
     cout << "\n-------------------------------------" << endl;
     source.print();
