@@ -62,6 +62,7 @@ vector<double> Node::getResistances() const { //getter function to make printing
     for (const auto& r : resistors) {
         resistances.push_back(r.getResistance());
     }
+    return resistanceValues;
 }
 
 double Node::getEquivalentResistance() const {//resistance
