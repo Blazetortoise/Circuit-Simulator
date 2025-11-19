@@ -1,7 +1,7 @@
 #ifndef CIRCUIT_H
 #define CIRCUIT_H
 
-#include "components.h"
+#include "Components.h"
 #include "Source.h"
 #include <vector>
 #include <string>
