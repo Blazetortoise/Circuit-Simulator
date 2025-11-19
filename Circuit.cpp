@@ -8,48 +8,50 @@
 using namespace std;
 
 //constructor
-Circuit::Circuit(double sourceVoltage, const string& name) 
+Circuit::Circuit(double sourceVoltage, const string& name)
     : source(sourceVoltage), ground(), circuitName(name) {
-    cout << "Circuit " << "created with " 
+    cout << "Circuit " << circuitName << " created with "
               << sourceVoltage << "V source" << endl;
 }
 
 //destructor
-Circuit::~Circuit() {}
+Circuit::~Circuit() {
+    cout << "Circuit '" << circuitName << "' destroyed" << endl;
+}
 
 void Circuit::buildC(){
     int numNodes;
     cout << "how many nodes, not including GND: " ;
     cin >> numNodes;
-    
+
     if (numNodes <= 0){ //if number is negative then throw exception
     throw invalid_argument("Invalid input");
     }
-    
+
     for (int i = 0; i < numNodes; i++) {
         nodes.push_back(Node(i + 1));
-        
+
         char resp;
         cout << "\n would you like to add resistors to node " << (i + 1) << "? (y/n): ";
         cin >> resp;
-        
+
         while (resp == 'y' || resp == 'Y') {
             double value;
             cout << "enter resistor value (ohms): ";
             cin >> value;
-            
+
             try {
                 nodes[i].addResistor(value);
                 cout << "Resistor added successfully!" << endl;
-            } catch (const exception& e) {//any error for resistor input 
+            } catch (const exception& e) {//any error for resistor input
                 cout << "Error: " << e.what() << endl;
             }
-            
+
             cout << "Add another resistor to Node " << (i + 1) << "? (y/n): ";
             cin >> resp;
         }
     }
-}    
+}
 
 //void Circuit::addNode() {
   //  int nodeNum = nodes.size() + 1;
@@ -88,12 +90,12 @@ void Circuit::calculateVoltages() {
     }
 }
 
- 
+
 void Circuit::analyzeCircuit(){
     cout << "\n ***circuit analysis***" << endl;
     try{
         calculateVoltages();
-        
+
         // Calculate total resistance
         double totalResistance = 0.0;
         for (const auto& node : nodes) {
@@ -104,7 +106,7 @@ void Circuit::analyzeCircuit(){
         cout << "\nTotal Circuit Resistance: " << totalResistance << " ohms" << endl;
         cout << "Total Current: " << totalCurrent << " A" << endl;
         cout << "Source Voltage: " << source.getVoltage() << " V" << endl;
-        
+
         cout << "\n***Node Analysis***" << endl;
         for (const auto& node : nodes) {
             node.print();
@@ -125,6 +127,8 @@ void Circuit::printCircuit() const {
     ground.print();
 
     cout << "\n-------------------------------------" << endl;
+
+
 }
     void Circuit::printAnalysis() const {
     printCircuit();
@@ -141,31 +145,32 @@ void Circuit::printCircuit() const {
         outFile << nodes.size() << endl;
 
         for (const auto& node : nodes) {
-            outFile << node.getNodeNumber() << " " 
+            outFile << node.getNodeNumber() << " "
             << node.getResistorCount() << " "
             << node.getVoltage() << endl;
         }
         outFile.close();
         cout << "Circuit saved to " << filename << endl;
 }
-//////////////
+
+
 void Circuit::loadFromFile(const string& filename) {
     ifstream inFile(filename);
-    
+
     if (!inFile) {
         throw runtime_error("Cannot open file for reading: " + filename);
     }
-    
+
     getline(inFile, circuitName);
-    
+
     double voltage;
     inFile >> voltage;
     source.setSourceVoltage(voltage);
-    
+
     int numNodes;
     inFile >> numNodes;
     nodes.clear();
-    
+
     for (int i = 0; i < numNodes; i++) {
         int nodeNum, resistorCount;
         double nodeVoltage;
@@ -173,37 +178,39 @@ void Circuit::loadFromFile(const string& filename) {
         nodes.push_back(Node(nodeNum));
         nodes[i].setVoltage(nodeVoltage);
     }
-    
+
     inFile.close();
     cout << "Circuit loaded from " << filename << endl;
 }
 
 
-// Advanced C++ feature: Lambda functions
+// Advanced C++ feature: Lambda functions (not typically covered in intro classes)
 void Circuit::demonstrateLambda() const {
     cout << "\n=== Lambda Function Demonstration ===" << endl;
     cout << "Using lambda to calculate total power dissipation:" << endl;
-    
+
     // Lambda function to calculate power (P = V * I)
     auto calculatePower = [](double voltage, double current) -> double {
         return voltage * current;
     };
-    
+
     double totalPower = 0.0;
     for (const auto& node : nodes) {
-        double power = calculatePower(node.getVoltage(), 
+        double power = calculatePower(node.getVoltage(),
             node.getVoltage() / node.getEquivalentResistance());
         totalPower += power;
     }
-    
+
     cout << "Total Power Dissipation: " << totalPower << " W" << std::endl;
 }
+
 ostream& operator<<(ostream& out,const Circuit& c) {
     double totalResistance = 0.0;
     for (int i = 0; i < c.nodes.size(); i++) {
         double req = c.nodes[i].getEquivalentResistance();
         totalResistance += req;
     }
+    // Cursed but whatever
     out<< "  ***"<<endl;
     out<<" * + *"<<endl;
     out<<"*     *"<<c.source.getVoltage()<<"V"<<endl;
@@ -219,8 +226,8 @@ ostream& operator<<(ostream& out,const Circuit& c) {
                 case 1:
                     out<<"   |  Node "<< i+1 <<endl;
                     out<<"   \\ "<<endl;
-                    out<<"   /  "<< c.nodes[i].getResistances()[0] << "Ω V:" << c.nodes[i].getVoltage()<<endl;
-                    out<<"   \\ Node Voltage: "<<endl;
+                    out<<"   /  "<< "R:" << c.nodes[i].getResistances()[0] << " V:" << c.nodes[i].getVoltage()<<endl;
+                    out<<"   \\ "<<endl;
                     out<<"   / "<<endl;
                     break;
                 case 2: {
@@ -228,7 +235,7 @@ ostream& operator<<(ostream& out,const Circuit& c) {
                     double v2 = c.nodes[i].getVoltage()-v1;
                     out<<"   | | "<<endl;
                     out<<"   \\ \\ "<<endl;
-                    out<<"   / / "<< c.nodes[i].getResistances()[0]<<endl;
+                    out<<"   / / "<< "R:" <<  c.nodes[i].getResistances()[0]<<endl;
                     out<<"   \\ \\"<<endl;
                     out<<"   / /"<<endl;
                     break;
@@ -241,9 +248,9 @@ ostream& operator<<(ostream& out,const Circuit& c) {
                     double v3 =  c.nodes[i].getVoltage()*(c.nodes[i].getResistances()[2]/(c.nodes[i].getResistances()[0] + (c.nodes[i].getResistances()[1])+
                         (c.nodes[i].getResistances()[2])));
                     out<<"  | | | Node Voltage Drop:"<<c.nodes[i].getVoltage()<<endl;
-                    out<<"  \\ \\ \\ "<<c.nodes[i].getResistances()[0]<<"Ω V=" <<v1 << " " <<"I=" << v1/c.nodes[i].getResistances()[0] <<endl;
-                    out<<"  \\ \\ \\"<<c.nodes[i].getResistances()[1]<<"Ω V=" << v2 << " " <<"I=" << v2/c.nodes[i].getResistances()[1] <<endl;
-                    out<<"  / / /"<<c.nodes[i].getResistances()[0]<<"Ω V=" <<v3 << " " <<"I=" << v3/c.nodes[i].getResistances()[2] <<endl;
+                    out<<"  \\ \\ \\ "<< "R:" <<  c.nodes[i].getResistances()[0]<<" V=" <<v1 << " " <<"I=" << v1/c.nodes[i].getResistances()[0] <<endl;
+                    out<<"  \\ \\ \\"<< "R:" <<  c.nodes[i].getResistances()[1]<<" V=" << v2 << " " <<"I=" << v2/c.nodes[i].getResistances()[1] <<endl;
+                    out<<"  / / /"<< "R:" << c.nodes[i].getResistances()[0]<<" V=" <<v3 << " " <<"I=" << v3/c.nodes[i].getResistances()[2] <<endl;
                     break;
             }
 
@@ -254,7 +261,7 @@ ostream& operator<<(ostream& out,const Circuit& c) {
             out<<"   / "<<endl;
             out<<"   |"<<endl;
         }
-        out<<"   ___  GND "<< i <<endl;
-        out<<"   /// " <<endl;
     }
-    }    
+    out<<"   ___  GND " <<endl;
+    out<<"   /// " <<endl;
+}
