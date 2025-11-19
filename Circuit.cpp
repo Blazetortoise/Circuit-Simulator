@@ -3,7 +3,7 @@
 #include <fstream>
 #include <vector>
 #include <stdexcept>
-#include "components.h"
+#include "Components.h"
 #include "Source.h"
 using namespace std;
 
