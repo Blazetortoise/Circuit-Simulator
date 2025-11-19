@@ -241,4 +241,5 @@ ostream& operator<<(ostream& out,const Circuit& c) {
     }
     out<<"  ___  GND " <<endl;
     out<<"  /// " <<endl;
+    return out;
 }
