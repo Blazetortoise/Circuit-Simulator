@@ -198,18 +198,63 @@ void Circuit::demonstrateLambda() const {
     
     cout << "Total Power Dissipation: " << totalPower << " W" << std::endl;
 }
-ostream& operator<<(ostream& out,const Circuit& c) { //cutesy little circuit printer
-    cout<< "  ***"<<endl;
-    cout<<" * + *"<<endl;
-    cout<<"*     *"<<c.source.getVoltage()<<"V"<<endl;
-    cout<<" * - *"<<endl;
-    cout<<"  ***"<<endl;
-    cout<<"   | "<<endl;
-    cout<<"   | "<<endl;
-    cout<<"   | "<<endl;
-    cout<<"   | "<<endl;
+ostream& operator<<(ostream& out,const Circuit& c) {
+    double totalResistance = 0.0;
+    for (int i = 0; i < c.nodes.size(); i++) {
+        double req = c.nodes[i].getEquivalentResistance();
+        totalResistance += req;
+    }
+    out<< "  ***"<<endl;
+    out<<" * + *"<<endl;
+    out<<"*     *"<<c.source.getVoltage()<<"V"<<endl;
+    out<<" * - *"<<endl;
+    out<<"  ***"<<endl;
+    out<<"   | "<< "Series Current: " << c.source.getVoltage() / totalResistance<< endl;
+    out<<"   | "<<endl;
+    out<<"   | "<<endl;
+    out<<"   | "<<endl;
     for(int i = 0; i < c.nodes.size(); i++) {
-        if (c.nodes[i].getResistorCount()<3) {
-            
+        if (c.nodes[i].getResistorCount()<3){
+            switch(c.nodes[i].getResistorCount()) {
+                case 1:
+                    out<<"   |  Node "<< i+1 <<endl;
+                    out<<"   \\ "<<endl;
+                    out<<"   /  "<< c.nodes[i].getResistances()[0] << "Ω V:" << c.nodes[i].getVoltage()<<endl;
+                    out<<"   \\ Node Voltage: "<<endl;
+                    out<<"   / "<<endl;
+                    break;
+                case 2: {
+                    double v1 = c.nodes[i].getVoltage()*(c.nodes[i].getResistances()[0]/(c.nodes[i].getResistances()[0] + (c.nodes[i].getResistances()[1])));
+                    double v2 = c.nodes[i].getVoltage()-v1;
+                    out<<"   | | "<<endl;
+                    out<<"   \\ \\ "<<endl;
+                    out<<"   / / "<< c.nodes[i].getResistances()[0]<<endl;
+                    out<<"   \\ \\"<<endl;
+                    out<<"   / /"<<endl;
+                    break;
+                }
+                case 3:
+                    double v1 = c.nodes[i].getVoltage()*(c.nodes[i].getResistances()[0]/(c.nodes[i].getResistances()[0] + (c.nodes[i].getResistances()[1])+
+                        (c.nodes[i].getResistances()[2])));
+                    double v2 =  c.nodes[i].getVoltage()*(c.nodes[i].getResistances()[1]/(c.nodes[i].getResistances()[0] + (c.nodes[i].getResistances()[1])+
+                        (c.nodes[i].getResistances()[2])));
+                    double v3 =  c.nodes[i].getVoltage()*(c.nodes[i].getResistances()[2]/(c.nodes[i].getResistances()[0] + (c.nodes[i].getResistances()[1])+
+                        (c.nodes[i].getResistances()[2])));
+                    out<<"  | | | Node Voltage Drop:"<<c.nodes[i].getVoltage()<<endl;
+                    out<<"  \\ \\ \\ "<<c.nodes[i].getResistances()[0]<<"Ω V=" <<v1 << " " <<"I=" << v1/c.nodes[i].getResistances()[0] <<endl;
+                    out<<"  \\ \\ \\"<<c.nodes[i].getResistances()[1]<<"Ω V=" << v2 << " " <<"I=" << v2/c.nodes[i].getResistances()[1] <<endl;
+                    out<<"  / / /"<<c.nodes[i].getResistances()[0]<<"Ω V=" <<v3 << " " <<"I=" << v3/c.nodes[i].getResistances()[2] <<endl;
+                    break;
+            }
+
+        } else {
+            out<<"   \\ "<<endl;
+            out<<"   /  "<<"Total Node Resistance: " << c.nodes[i].getTotalResistance()<<endl;
+            out<<"   \\ "<<"Node Voltage:"<< c.nodes[i].getVoltage()<<endl;
+            out<<"   / "<<endl;
+            out<<"   |"<<endl;
         }
+        out<<"   ___  GND "<< i <<endl;
+        out<<"   /// " <<endl;
+    }
     }    
