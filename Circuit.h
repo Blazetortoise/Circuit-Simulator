@@ -33,6 +33,8 @@ public:
     bool operator==(const Circuit& other) const; // operator overloading
     void demonstrateLambda() const;
 
+     friend ostream& operator<<(ostream& out,const Circuit& c); //another way to print the circuit
+
     // Advanced C++ feature: Lambda function usage
     //void demonstrateLambda() const;
 };
