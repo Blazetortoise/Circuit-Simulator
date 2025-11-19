@@ -205,3 +205,18 @@ void Circuit::demonstrateLambda() const {
     
     cout << "Total Power Dissipation: " << totalPower << " W" << std::endl;
 }
+ostream& operator<<(ostream& out,const Circuit& c) { //cutesy little circuit printer
+    cout<< "  ***"<<endl;
+    cout<<" * + *"<<endl;
+    cout<<"*     *"<<c.source.getVoltage()<<"V"<<endl;
+    cout<<" * - *"<<endl;
+    cout<<"  ***"<<endl;
+    cout<<"   | "<<endl;
+    cout<<"   | "<<endl;
+    cout<<"   | "<<endl;
+    cout<<"   | "<<endl;
+    for(int i = 0; i < c.nodes.size(); i++) {
+        if (c.nodes[i].getResistorCount()<3) {
+            
+        }
+    }    
