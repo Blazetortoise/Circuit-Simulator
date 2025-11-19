@@ -14,7 +14,7 @@ int main() {
     cin >> sourceVoltage;
 
     try {
-        Circuit circuit(sourceVoltage);
+        Circuit circuit(sourceVoltage,"myCircuit");
 
         //number of nodes
         int numNodes;
@@ -56,13 +56,14 @@ int main() {
             }
         }
 
-        // Run analysis 
+        // Run analysis
         cout << "\n\n=== Running Circuit Analysis ===\n";
         circuit.analyzeCircuit();
 
         // Print results
         cout << "\n=== Final Circuit ===\n";
         circuit.printCircuit();
+        cout<<circuit;
     }
     catch (const exception& e) {
         cerr << "Fatal Error: " << e.what() << endl;
